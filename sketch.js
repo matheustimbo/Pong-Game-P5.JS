@@ -3,6 +3,8 @@ let pontosVitoria = 10
 let velJogador = 5
 let velBola = 4
 let acabou = true
+let gols1 = 0
+let gols2 = 0
 
 function setup() {
   createCanvas(800, 500);
@@ -32,6 +34,11 @@ function draw() {
 
     rect(width -80, height/2 - 90, 90, 180);
 
+    textFont('Fira');
+    textSize(56);
+    text(gols1, width/4, 60);
+    text(gols2, width/4 * 3, 60);
+
     noStroke()
     jogador1.draw(1)
     jogador2.draw(2)
@@ -53,9 +60,16 @@ function draw() {
 function resetarAposPontuar() {
     if ((bola.x - bola.diametro / 2 <= -bola.diametro)
      || (bola.x + bola.diametro / 2 >= width + bola.diametro)) {
-        bola.x = width / 2
-        bola.y = height / 2
-        bola.dirX *= -1
+      
+      if(bola.x - bola.diametro / 2 <= -bola.diametro){
+        gols2++
+      }
+      if((bola.x + bola.diametro / 2 >= width + bola.diametro)){
+        gols1++
+      }
+      bola.x = width / 2
+      bola.y = height / 2
+      bola.dirX *= -1
       let direction = random(2)
       bola.dirY *= direction == 0 ? -1 : 1
       bola.vel = velBola
